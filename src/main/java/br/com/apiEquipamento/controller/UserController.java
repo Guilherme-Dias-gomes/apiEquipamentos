@@ -19,8 +19,8 @@ public class UserController {
     @Autowired
     private UserServices services;
 
-    @GetMapping("/{name}")
-    public UserDetailsDTO listarByEmail(@PathVariable String email){
+    @GetMapping(params = "email")
+    public UserDetailsDTO listarByEmail(@RequestParam String email){
         return UserDetailsDTO.fromUser(services.getUserByEmail(email));
     }
 
@@ -35,6 +35,17 @@ public class UserController {
     public ResponseEntity<User> CriarUsuario(@RequestBody User user){
         User novoUser = services.PostUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public void DeletarUsuario(@PathVariable Long id){
+        services.DeleteUser(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> AlterarUser(@PathVariable Long id, User user){
+        User userAlterado = services.AtualizarUser(user, id);
+        return ResponseEntity.ok(userAlterado);
     }
 
 

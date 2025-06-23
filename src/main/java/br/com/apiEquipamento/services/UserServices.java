@@ -26,13 +26,9 @@ public class UserServices {
     public User PostUser(User user){
         return repository.save(user);
     }
-
     public User AtualizarUser (User user, Long id){
         User userExistente = repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundExpetion("Usuario não enocntrado com o Id " + id));
-
-        userExistente.setNome(user.getNome());
-        userExistente.setSetor(user.getSetor());
 
         return repository.save(userExistente);
     }
