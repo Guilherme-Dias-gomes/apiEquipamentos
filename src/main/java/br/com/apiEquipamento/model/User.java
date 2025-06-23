@@ -1,4 +1,4 @@
-package model;
+package br.com.apiEquipamento.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -18,15 +18,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+
     private String email;
 
-    @NotNull
+
     private String senha;
 
-    @NotNull
+
     private String nome;
 
-    @NotNull
+
     private String setor;
 }
