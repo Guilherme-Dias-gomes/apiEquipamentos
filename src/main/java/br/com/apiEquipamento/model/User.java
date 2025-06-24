@@ -1,7 +1,7 @@
 package br.com.apiEquipamento.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,15 +18,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @NotBlank(message = "Email obrigatório")
     private String email;
 
-
+    @NotBlank(message = "Senha obrigatória")
     private String senha;
 
-
+    @NotBlank(message = "Nome obrigatório")
     private String nome;
 
-
+    @NotBlank(message = "Setor obrigatório")
     private String setor;
 }

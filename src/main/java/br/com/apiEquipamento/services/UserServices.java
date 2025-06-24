@@ -1,10 +1,10 @@
 package br.com.apiEquipamento.services;
 
-import br.com.apiEquipamento.exception.UserNotFoundExpetion;
+import br.com.apiEquipamento.exception.UserNotFoundExcpetion;
 import br.com.apiEquipamento.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import br.com.apiEquipamento.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ public class UserServices {
         return repository.findAll();
     }
 
-    public User getUserByEmail(String email){
-        return repository.findByEmail(email).orElseThrow(
-                () -> new UserNotFoundExpetion(email)
+    public User getUserById(Long id){
+        return repository.findById(id).orElseThrow(
+                () -> new UserNotFoundExcpetion(id)
         );
     }
 
@@ -28,14 +28,19 @@ public class UserServices {
     }
     public User AtualizarUser (User user, Long id){
         User userExistente = repository.findById(id)
-                .orElseThrow(() -> new UserNotFoundExpetion("Usuario não enocntrado com o Id " + id));
+                .orElseThrow(() -> new UserNotFoundExcpetion("Usuario não enocntrado com o Id " + id));
+
+        userExistente.setEmail(user.getEmail());
+        userExistente.setSenha(user.getSenha());
+        userExistente.setNome(user.getNome());
+        userExistente.setSetor(user.getSetor());
 
         return repository.save(userExistente);
     }
 
     public void DeleteUser(Long id){
         repository.findById(id).orElseThrow(
-                () -> new UserNotFoundExpetion(id)
+                () -> new UserNotFoundExcpetion(id)
         );
         repository.deleteById(id);
     }
