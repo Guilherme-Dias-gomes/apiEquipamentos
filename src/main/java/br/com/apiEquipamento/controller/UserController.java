@@ -35,12 +35,6 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
-    public ResponseEntity<User> CriarUsuario(@RequestBody @Valid User user){
-        User novoUser = services.PostUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoUser);
-    }
-
     @DeleteMapping("/{id}")
     public void DeletarUsuario(@PathVariable Long id){
         services.DeleteUser(id);

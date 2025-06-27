@@ -3,5 +3,6 @@ CREATE TABLE Users(
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(30) NOT NULL,
     nome VARCHAR(255) NOT NULL,
-    setor VARCHAR(50) NOT NULL
+    setor VARCHAR(50) NOT NULL,
+    role TEXT NOT NULL
 );
