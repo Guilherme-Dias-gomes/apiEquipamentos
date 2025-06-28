@@ -1,5 +1,6 @@
 package br.com.apiEquipamento.security;
 
+
 import br.com.apiEquipamento.repository.UserRepository;
 import br.com.apiEquipamento.services.TokenService;
 import jakarta.servlet.FilterChain;
@@ -17,10 +18,8 @@ import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-
     @Autowired
     TokenService tokenService;
-
     @Autowired
     UserRepository userRepository;
 
@@ -34,6 +33,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request){
