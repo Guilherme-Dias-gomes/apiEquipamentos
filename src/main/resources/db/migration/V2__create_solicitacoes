@@ -1,0 +1,11 @@
+CREATE TABLE solicitacoes (
+    id_servico BIGINT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    data TIMESTAMP,
+    usuario_id BIGINT NOT NULL,
+    CONSTRAINT fk_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES users(id)
+);
