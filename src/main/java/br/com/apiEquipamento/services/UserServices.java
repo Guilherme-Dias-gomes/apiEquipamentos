@@ -1,5 +1,6 @@
 package br.com.apiEquipamento.services;
 
+import br.com.apiEquipamento.dto.UserUpdateDTO;
 import br.com.apiEquipamento.exception.UserNotFoundExcpetion;
 import br.com.apiEquipamento.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,12 @@ public class UserServices {
         return repository.save(user);
     }
 
-    public User AtualizarUser (User user, Long id){
+    public User AtualizarUser (UserUpdateDTO userDto, Long id){
         User userExistente = repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundExcpetion("Usuario não enocntrado com o Id " + id));
 
-        userExistente.setEmail(user.getEmail());
-        userExistente.setSenha(user.getSenha());
-        userExistente.setNome(user.getNome());
-        userExistente.setSetor(user.getSetor());
+        userExistente.setNome(userDto.nome());
+        userExistente.setSetor(userDto.setor());
 
         return repository.save(userExistente);
     }

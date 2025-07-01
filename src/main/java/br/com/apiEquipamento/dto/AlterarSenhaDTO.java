@@ -1,4 +1,3 @@
 package br.com.apiEquipamento.dto;
 
-public class AlterarSenhaDTO {
-}
+public record AlterarSenhaDTO(String senhaAtual, String novaSenha) {}

@@ -1,5 +1,6 @@
 package br.com.apiEquipamento.services;
 
+import br.com.apiEquipamento.dto.SolicitUpdateDTO;
 import br.com.apiEquipamento.exception.SolicitNotFoundExcption;
 import br.com.apiEquipamento.model.Solicitacoes;
 import br.com.apiEquipamento.repository.SolicitacoesRepository;
@@ -29,17 +30,15 @@ public class SolicitacaoService {
         return repository.save(solicitacoes);
     }
 
-    public Solicitacoes EditarSolicit(Solicitacoes solicitacoes, Long id){
+    public Solicitacoes EditarSolicit(SolicitUpdateDTO solicitacoesDto, Long id){
         Solicitacoes solicitExistente = repository.findById(id).orElseThrow(
                 () -> new SolicitNotFoundExcption(id)
         );
-        solicitExistente.setTitulo(solicitacoes.getTitulo());
-        solicitExistente.setDescricao(solicitacoes.getDescricao());
-        solicitExistente.setStatus(solicitacoes.getStatus());
-        solicitExistente.setUsuario(solicitacoes.getUsuario());
-        solicitExistente.setData(solicitacoes.getData());
+        solicitExistente.setTitulo(solicitacoesDto.titulo());
+        solicitExistente.setDescricao(solicitacoesDto.descricao());
+        solicitExistente.setStatus(solicitacoesDto.status());
 
-        return repository.save(solicitExistente);w
+        return repository.save(solicitExistente);
     }
 
     public void deleteSolicit(Long id){

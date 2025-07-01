@@ -1,4 +1,7 @@
 package br.com.apiEquipamento.dto;
 
-public record UserUpdateDTO() {
+public record UserUpdateDTO(
+        String nome,
+        String setor
+) {
 }

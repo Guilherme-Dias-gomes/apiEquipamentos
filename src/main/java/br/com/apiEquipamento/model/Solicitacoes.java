@@ -16,7 +16,7 @@ import java.util.Date;
 public class Solicitacoes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idServico;
+    private Long idSolicitacao;
 
     @NotNull
     private String titulo;
@@ -31,6 +31,6 @@ public class Solicitacoes {
     private LocalDateTime data;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
     private User usuario;
 }

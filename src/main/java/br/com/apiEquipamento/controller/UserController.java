@@ -1,6 +1,7 @@
 package br.com.apiEquipamento.controller;
 
 import br.com.apiEquipamento.dto.UserDetailsDTO;
+import br.com.apiEquipamento.dto.UserUpdateDTO;
 import jakarta.validation.Valid;
 import br.com.apiEquipamento.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> AlterarUser(@RequestBody @Valid User user, @PathVariable Long id ){
-        User userAlterado = services.AtualizarUser(user, id);
-        return ResponseEntity.ok(userAlterado);
+    public ResponseEntity<UserUpdateDTO> AlterarUser(@RequestBody @Valid UserUpdateDTO userDto, @PathVariable Long id ){
+        User userAlterado = services.AtualizarUser(userDto, id);
+        UserUpdateDTO response = new UserUpdateDTO(
+                userAlterado.getNome(),
+                userAlterado.getSetor()
+        );
+        return ResponseEntity.ok(response);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
