@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +51,20 @@ public class SolicitacoesController {
     public SolicitResponseDTO solicitPorId(@PathVariable Long id){
         return SolicitResponseDTO.from(services.getById(id));
     }
+
+    @GetMapping("/minhas-solicitacoes")
+    public ResponseEntity<List<SolicitResponseDTO>> listarMinhasSolicitacoes(Authentication authentication) {
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+
+        List<Solicitacoes> solicitacoes = repository.findByUsuario(user);
+        List<SolicitResponseDTO> response = solicitacoes.stream()
+                .map(SolicitResponseDTO::from)
+                .toList();
+
+        return ResponseEntity.ok(response);
+    }
+
 
     @PostMapping
     public ResponseEntity<SolicitacaoResponseDTO> criarSolicit(@RequestBody @Valid NovaSolicitacaoDTO solicitDto){

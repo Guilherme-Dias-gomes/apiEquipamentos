@@ -36,6 +36,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+
     @DeleteMapping("/{id}")
     public void DeletarUsuario(@PathVariable Long id){
         services.DeleteUser(id);

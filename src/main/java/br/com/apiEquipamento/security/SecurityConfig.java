@@ -27,26 +27,28 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        //Login
+                        // Login e registro
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/auth/users/*/senha").authenticated()
-                        //User
-                        .requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/users/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/users/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").authenticated()
-                        //solicitações
-                        .requestMatchers(HttpMethod.GET, "/solicitacao/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/solicitacao/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/solicitacao/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/solicitacao/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasAuthority("ROLE_ADMIN")
 
+                        // Acesso de USER às próprias solicitações
+                        .requestMatchers(HttpMethod.GET, "/solicitacao/minhas-solicitacoes").hasAuthority("ROLE_USER")
+                        .requestMatchers(HttpMethod.POST, "/solicitacao").hasRole("USER")
+
+                        // Alteração de senha (qualquer autenticado)
+                        .requestMatchers(HttpMethod.PUT, "/users/*/senha").authenticated()
+
+                        // Acesso total para ADMIN
+                        .requestMatchers("/users/**", "/solicitacao/**").hasAuthority("ROLE_ADMIN")
+
+                        // Outras requisições
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{

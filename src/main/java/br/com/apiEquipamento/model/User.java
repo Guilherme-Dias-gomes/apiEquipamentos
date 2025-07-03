@@ -36,6 +36,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Setor obrigatório")
     private String setor;
 
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     public User(String email, String senha, String nome, String setor, UserRole role) {
@@ -48,9 +49,16 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.role == UserRole.ADMIN)
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+
 
     @Override
     public String getPassword() {

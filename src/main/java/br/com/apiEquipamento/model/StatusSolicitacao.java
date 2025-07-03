@@ -2,7 +2,7 @@ package br.com.apiEquipamento.model;
 
 public enum StatusSolicitacao {
     NORMAL("Normal"),
-    MEDIANO("Mediano"),
+    MEDIO("Mediow"),
     URGENTE("Urgente");
 
     private final String label;
