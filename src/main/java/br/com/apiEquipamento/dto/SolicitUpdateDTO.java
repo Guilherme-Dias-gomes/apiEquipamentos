@@ -6,5 +6,6 @@ import br.com.apiEquipamento.model.StatusSolicitacao;
 public record SolicitUpdateDTO(
         String titulo,
         String descricao,
-        StatusSolicitacao status
+        StatusSolicitacao status,
+        boolean concluida
 ) {}

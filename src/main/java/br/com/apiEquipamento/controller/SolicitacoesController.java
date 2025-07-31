@@ -110,7 +110,8 @@ public class SolicitacoesController {
         SolicitUpdateDTO response = new SolicitUpdateDTO(
                 solicitAtualizada.getTitulo(),
                 solicitAtualizada.getDescricao(),
-                solicitAtualizada.getStatus()
+                solicitAtualizada.getStatus(),
+                solicitAtualizada.isConcluida()
         );
         return ResponseEntity.ok(response);
     }

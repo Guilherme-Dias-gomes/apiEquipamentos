@@ -5,6 +5,7 @@ CREATE TABLE solicitacoes (
     status VARCHAR(20) NOT NULL,
     data TIMESTAMP,
     usuario_id BIGINT NOT NULL,
+    concluida BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT fk_usuario
         FOREIGN KEY (usuario_id)
         REFERENCES users(id)

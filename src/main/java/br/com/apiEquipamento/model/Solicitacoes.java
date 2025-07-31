@@ -30,6 +30,8 @@ public class Solicitacoes {
 
     private LocalDateTime data;
 
+    private boolean concluida;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", nullable = false)
     private User usuario;

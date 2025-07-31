@@ -37,6 +37,7 @@ public class SolicitacaoService {
         solicitExistente.setTitulo(solicitacoesDto.titulo());
         solicitExistente.setDescricao(solicitacoesDto.descricao());
         solicitExistente.setStatus(solicitacoesDto.status());
+        solicitExistente.setConcluida((solicitacoesDto.concluida()));
 
         return repository.save(solicitExistente);
     }
