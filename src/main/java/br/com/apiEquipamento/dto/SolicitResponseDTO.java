@@ -7,6 +7,7 @@ import br.com.apiEquipamento.model.User;
 import java.time.LocalDateTime;
 
 public record SolicitResponseDTO(
+        Long idSolicitacao,
         String titulo,
         String descricao,
         StatusSolicitacao status,
@@ -15,6 +16,7 @@ public record SolicitResponseDTO(
 ) {
     public static SolicitResponseDTO from(Solicitacoes solicitacao) {
         return new SolicitResponseDTO(
+                solicitacao.getIdSolicitacao(),
                 solicitacao.getTitulo(),
                 solicitacao.getDescricao(),
                 solicitacao.getStatus(),

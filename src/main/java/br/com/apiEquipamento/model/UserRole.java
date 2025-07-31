@@ -1,5 +1,5 @@
 package br.com.apiEquipamento.model;
 
-public enum UserRole {
-    ADMIN, USER
-}
+    public enum UserRole {
+        ADMIN, USER
+    }

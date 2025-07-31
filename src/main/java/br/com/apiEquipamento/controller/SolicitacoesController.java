@@ -65,6 +65,15 @@ public class SolicitacoesController {
         return ResponseEntity.ok(response);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<SolicitResponseDTO>> listarTodasSolicitacoes(){
+//        List<Solicitacoes> solicitacoes = repository.findAll();
+//        List<SolicitResponseDTO> response = solicitacoes.stream()
+//                .map(SolicitResponseDTO::from)
+//                .toList();
+//        return ResponseEntity.ok(response);
+//    }
+
 
     @PostMapping
     public ResponseEntity<SolicitacaoResponseDTO> criarSolicit(@RequestBody @Valid NovaSolicitacaoDTO solicitDto){

@@ -21,26 +21,34 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    public SecurityConfig(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(java.util.List.of("http://localhost:3000"));
+                    corsConfiguration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    corsConfiguration.setAllowedHeaders(java.util.List.of("*"));
+                    corsConfiguration.setAllowCredentials(true);
+                    return corsConfiguration;
+                }))
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Login e registro
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasAuthority("ROLE_ADMIN")
-
+                        .requestMatchers(HttpMethod.GET, "/solicitacao").hasRole("ADMIN")
                         // Acesso de USER às próprias solicitações
                         .requestMatchers(HttpMethod.GET, "/solicitacao/minhas-solicitacoes").hasAuthority("ROLE_USER")
                         .requestMatchers(HttpMethod.POST, "/solicitacao").hasRole("USER")
-
                         // Alteração de senha (qualquer autenticado)
                         .requestMatchers(HttpMethod.PUT, "/users/*/senha").authenticated()
-
                         // Acesso total para ADMIN
                         .requestMatchers("/users/**", "/solicitacao/**").hasAuthority("ROLE_ADMIN")
-
                         // Outras requisições
                         .anyRequest().authenticated()
                 )
