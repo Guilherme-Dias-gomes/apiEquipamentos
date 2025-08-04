@@ -7,15 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
+@Table(name = "solicitacoes")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Solicitacoes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_servico")
     private Long idSolicitacao;
 
     @NotNull
@@ -24,12 +25,13 @@ public class Solicitacoes {
     @NotNull
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
     @NotNull
+    @Enumerated(EnumType.STRING)
     private StatusSolicitacao status;
 
     private LocalDateTime data;
 
+    @Column(name = "concluida", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean concluida;
 
     @ManyToOne(fetch = FetchType.EAGER)

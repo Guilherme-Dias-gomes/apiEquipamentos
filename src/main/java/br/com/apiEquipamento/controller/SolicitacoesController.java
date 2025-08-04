@@ -102,8 +102,6 @@ public class SolicitacoesController {
     }
 
 
-
-
     @PutMapping("/{id}")
     public ResponseEntity<SolicitUpdateDTO> editarSolicit(@RequestBody @Valid SolicitUpdateDTO solicitDTO, @PathVariable Long id ){
         Solicitacoes solicitAtualizada = services.EditarSolicit(solicitDTO, id);
