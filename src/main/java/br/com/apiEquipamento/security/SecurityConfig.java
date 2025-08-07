@@ -46,7 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/solicitacao/minhas-solicitacoes").hasAuthority("ROLE_USER")
                         .requestMatchers(HttpMethod.POST, "/solicitacao").hasRole("USER")
                         // Alteração de senha (qualquer autenticado)
-                        .requestMatchers(HttpMethod.PUT, "/users/*/senha").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/users/*/senha").hasAuthority("ROLE_ADMIN")
                         // Acesso total para ADMIN
                         .requestMatchers("/users/**", "/solicitacao/**").hasAuthority("ROLE_ADMIN")
                         // Outras requisições
