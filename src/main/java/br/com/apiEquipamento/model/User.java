@@ -30,10 +30,10 @@ public class User implements UserDetails {
     @NotBlank(message = "Senha obrigatória")
     private String senha;
 
-    @NotBlank(message = "Nome obrigatório")
+    @NotBlank(message = "Nome obrigatório", groups = {OnCreate.class})
     private String nome;
 
-    @NotBlank(message = "Setor obrigatório")
+    @NotBlank(message = "Setor obrigatório", groups = {OnCreate.class})
     private String setor;
 
     @Enumerated(EnumType.STRING)
@@ -57,8 +57,6 @@ public class User implements UserDetails {
         else
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
-
 
     @Override
     public String getPassword() {
@@ -89,4 +87,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
+    interface OnCreate {}
+    interface OnUpdate {}
 }

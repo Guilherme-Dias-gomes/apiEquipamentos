@@ -62,10 +62,6 @@ public class AuthenticationController {
         User user = repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundExcpetion("Usuário não encontrado"));
 
-        if (!passwordEncoder.matches(dto.senhaAtual(), user.getSenha())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha atual incorreta");
-        }
-
         user.setSenha(passwordEncoder.encode(dto.novaSenha()));
         repository.save(user);
 
